@@ -46,25 +46,26 @@ jupyter notebook mushroom_classification.ipynb
 ```
 Then choose **Kernel > Restart & Run All**. An internet connection is needed the first time to download the dataset.
 
-## Results
 
-> Fill this table in with the numbers from your own run (the notebook prints them).
+
+## Results
 
 | Model | Test accuracy | Poisonous predicted as edible | Edible predicted as poisonous | 5-fold CV mean accuracy |
 |---|---|---|---|---|
-| Decision Tree | _fill in_ | _fill in_ | _fill in_ | _fill in_ |
-| KNN (k = 5) | _fill in_ | _fill in_ | _fill in_ | _fill in_ |
+| Decision Tree | 1.0000 | 0 | 0 | 1.0000 |
+| KNN (k = 5) | 1.0000 | 0 | 0 | 1.0000 |
 
-The confusion matrices are shown in the notebook.
+Both models classified all 1,625 test mushrooms correctly, and all five cross-validation folds scored 1.0 for both models. The confusion matrices are shown in the notebook.
+
+I also removed all the odor features and retrained both models. Both still scored 1.0.
 
 ## Conclusion
 
-> Update this after running the notebook.
-
-- **Better model:** _write which model scored higher and by how much, using your results above._
-- **Key takeaway on errors:** the most important number is how many poisonous mushrooms were predicted as edible, not just overall accuracy.
-- **What I learned:** one-hot encoding is needed for categorical data, treating missing values as a category kept about 30% of the rows, and a Decision Tree shows which features drive its decisions (for example odor), while KNN does not.
-- **Caveat:** this dataset is very clean, so near-perfect scores do not mean the model is safe for real foraging. Never rely on a model alone to decide whether to eat a wild mushroom.
+- **Better model:** Neither. The Decision Tree and KNN (k = 5) both reached 1.0000 test accuracy and 1.0000 cross-validation accuracy, so accuracy cannot separate them on this dataset.
+- **Key takeaway on errors:** Neither model made any mistakes, including the dangerous one of predicting a poisonous mushroom as edible.
+- **Feature importance:** The Decision Tree relied mostly on odor. `odor_n` (no smell) alone made up about 62% of its importance, and the top three features made up about 90%.
+- **What I learned:** The dataset is very clean and has several features that separate edible from poisonous mushrooms, since removing all the odor columns did not reduce accuracy. With scores this high, the practical difference between the models is interpretability: the Decision Tree shows which features drive its decisions, while KNN does not. Treating missing `stalk-root` values as their own category kept about 30% of the data.
+- **Caveat:** This dataset is unusually clean, so near-perfect scores do not mean a model is safe for real foraging. Never rely on a model alone to decide whether to eat a wild mushroom.
 
 ## Repository Structure
 
